@@ -1,12 +1,12 @@
 const Report = require('../models/reportModel');
 
 const createReport = async (req, res) => {
-    const { issue, description, profURL, latitude,longitude } = req.body;
-    console.log( issue, description, profURL, latitude,longitude );
+    const { issue, description, suspectname,suspectMobile, latitude,longitude } = req.body;
+    console.log( issue, suspectname,suspectMobile,description, latitude,longitude );
     
   
     // Validate the required fields
-    if (!issue || !description || !latitude || !longitude) {
+    if (!issue || !description || !latitude || !longitude || !suspectMobile || !suspectname) {
       return res.status(400).json({
         message: 'Issue, description, and location (latitude and longitude) are required.',
       });
@@ -16,7 +16,8 @@ const createReport = async (req, res) => {
       const newReport = new Report({
         issue,
         description,
-        profURL,
+        suspectMobile,
+        suspectname,
         latitude:latitude,
         longitude:longitude
       });

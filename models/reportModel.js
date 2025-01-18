@@ -10,10 +10,13 @@ const reportSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  profURL: {
+  suspectMobile: {
     type: String,
     required: false, 
-    default:null// Optional field
+  },
+  suspectname: {
+    type: String,
+    required: false, 
   },
   longitude: { type: Number, required: true },
   latitude: { type: Number, required: true },
