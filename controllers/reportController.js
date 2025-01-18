@@ -9,6 +9,7 @@ const createReport = async (req, res) => {
     if (!issue || !description || !latitude || !longitude || !suspectMobile || !suspectname) {
       return res.status(400).json({
         message: 'Issue, description, and location (latitude and longitude) are required.',
+        issue, suspectname,suspectMobile,description, latitude,longitude
       });
     }
   
