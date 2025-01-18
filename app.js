@@ -24,6 +24,7 @@ app.get('/',async(req,res)=>{
 
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/report', require('./routes/reportRoutes'));
 
 // Start server
 app.listen(PORT, () => {
