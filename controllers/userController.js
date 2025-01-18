@@ -102,5 +102,40 @@ const signupGuest = async (req, res) => {
 };
 
 
+const loginGuest = async (req, res) => {
+  const { username, password } = req.body;
 
-module.exports = {loginUser, createUser,signupGuest };
+  // Validate input fields
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required.' });
+  }
+
+  try {
+    // Check if the user exists and is a guest
+    const guestUser = await User.findOne({ username, isGuest: true });
+    if (!guestUser) {
+      return res.status(400).json({ message: 'Guest user not found.' });
+    }
+
+    // Compare the provided password with the stored hashed password
+    const isMatch = await bcrypt.compare(password, guestUser.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials.' });
+    }
+
+    // Return a success message (no JWT or token)
+    res.status(200).json({
+      message: 'Guest login successful',
+      user: {
+        id: guestUser._id,
+        username: guestUser.username,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error. Please try again later.' });
+  }
+};
+
+
+module.exports = {loginUser, createUser,signupGuest,loginGuest };

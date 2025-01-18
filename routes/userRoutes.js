@@ -1,5 +1,5 @@
 const express = require('express');
-const { loginUser,createUser, signupGuest } = require('../controllers/userController');
+const { loginUser,createUser, signupGuest, loginGuest } = require('../controllers/userController');
 const router = express.Router();
 
 
@@ -10,8 +10,11 @@ router.post('/signup', createUser);
 // POST login to an existing account (with credentials)
 router.post('/login', loginUser);
 
-// POST create a guest Account (with credentials)
-router.post('/login/guest', signupGuest);
+// POST create a guest Account (without credentials - email)
+router.post('/signup/guest', signupGuest);
+
+// POST create a guest Account (without credentials - email)
+router.post('/login/guest', loginGuest);
 
 
 
